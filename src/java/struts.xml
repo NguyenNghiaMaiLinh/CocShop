@@ -1,0 +1,124 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <!-- Configuration for the default package. -->
+    <package name="default" extends="struts-default" namespace="/">
+        <action name="">
+            <result>userPage.jsp</result>
+        </action>
+        
+        <action name="linkLogin">
+            <result>login.jsp</result>
+        </action>
+        
+        <action name="countinute">
+            <result>userPage.jsp</result>
+        </action>
+        
+        <action name="login" class="sample.struts2.LoginAction">
+            <result name="user">userPage.jsp</result>
+            <result name="admin">adminPage.jsp</result>
+            <result name="staff">staffPage.jsp</result>
+            <result name="invalid">login.jsp</result>
+            <result name="fail" type="redirect" >invalid.jsp</result>
+        </action>
+        
+        <action name="logout" class="sample.struts2.LoginAction" method="logout">
+            <result name="success" type="redirect">login.jsp</result>
+        </action>
+        
+        <action name="searchFromUser" class="sample.struts2.SearchAction" method="searchFromUser">
+            <result name="success">userPage.jsp</result>
+            <result name="invalid">login.jsp</result>
+        </action>
+        
+        <action name="searchFromAdminPage" class="sample.struts2.SearchAction" method="searchFromAdmin">
+            <result name="success">adminPage.jsp</result>
+            <result name="invalid">login.jsp</result>
+        </action>
+        
+        <action name="searchFromStaff" class="sample.struts2.SearchAction" method="searchFromStaff">
+            <result name="success">staffPage.jsp</result>
+            <result name="invalid">login.jsp</result>
+        </action>
+        
+        <action name="deleteFromAdmin" class="sample.struts2.DeleteAction" method="deleteFromAdmin">
+            <result name="success" type="redirectAction">
+                <param name="actionName">searchFromAdminPage</param>
+                <param name="userID">${userID}</param>
+                <param name="nameValue">${lastNameValue}</param>
+            </result>
+            <result name="fail" type="redirect">error.jsp</result>
+            <result name="invalid">login.jsp</result>
+        </action>
+        
+        <action name="deleteFromStaff" class="sample.struts2.DeleteAction" method="deleteFromStaff">
+            <result name="success" type="redirectAction">
+                <param name="actionName">searchFromStaff</param>
+                <param name="userID">${userID}</param>
+                <param name="searchValue">${lastSearchValue}</param>
+            </result>
+            <result name="fail" type="redirect">error.jsp</result>
+            <result name="invalid">login.jsp</result>
+        </action>
+        
+        <action name="editFromAdmin" class="sample.struts2.EditAction" method="editFromAdmin">
+            <result name="success">updateCustomerPage.jsp</result>
+            <result name="invalid">login.jsp</result>
+        </action>
+        
+        <action name="editFromSatff" class="sample.struts2.EditAction" method="editFromSatff">
+            <result name="success">updateProductPage.jsp</result>
+            <result name="invalid">login.jsp</result>
+        </action>
+        
+        <action name="updateFromAdmin" class="sample.struts2.UpdateAction" method="updateFromAdmin">
+            <result name="success" type="redirectAction">
+                <param name="userID">${userID}</param>
+                <param name="actionName">searchFromAdminPage</param>
+                <param name="nameValue">${lastNameValue}</param>
+            </result>
+            <result name="fail" type="redirect">error.jsp</result>
+            <result name="invalid" >updateCustomerPage.jsp</result>
+        </action>
+        
+        <action name="updateFromStaff" class="sample.struts2.UpdateAction" method="updateFromStaff">
+            <result name="success" type="redirectAction">
+                <param name="actionName">searchFromStaff</param>
+                <param name="userID">${userID}</param>
+                <param name="searchValue">${lastSearchValue}</param>
+            </result>
+            <result name="fail" type="redirect">error.jsp</result>
+            <result name="invalid" >updateProductPage.jsp</result>
+        </action>
+        
+        <action name="addToCart" class="sample.struts2.AddToCartAction">
+            <result name="success" type="redirectAction">
+                <param name="actionName">searchFromUser</param>
+                <param name="searchValue">${lastSearchValue}</param>
+            </result>
+            <result name="invalid">login.jsp</result>
+            <result name="fail" type="redirect">error.jsp</result>
+        </action>   
+          
+        <action name="removeFromCart" class="sample.struts2.RemoveCartAction">
+            <result name="success">view.jsp</result>
+        </action>
+        
+        <action name="insertAccount" class="sample.struts2.InsertAction" method="insertAccount">
+            <result name="success">login.jsp</result>
+            <result name="fail" type="redirect">error.jsp</result>
+            <result name="invalid" >insertAccount.jsp</result>
+        </action>
+        
+        <action name="insertProduct" class="sample.struts2.InsertAction" method="insertProduct">
+            <result name="success">staffPage.jsp</result>
+            <result name="fail" type="redirect">error.jsp</result>
+            <result name="invalid" >insertProduct.jsp</result>
+        </action>
+        
+        
+    </package>
+</struts>
